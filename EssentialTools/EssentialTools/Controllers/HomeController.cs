@@ -12,7 +12,7 @@ namespace EssentialTools.Controllers
             new Product { Name = "Soccer ball", Price = 19.50M },
             new Product { Name = "Corner Flag", Price = 34.95M }};
 
-        public HomeController(IValueCalculator calcParam)
+        public HomeController(IValueCalculator calcParam, IValueCalculator calc2)
         {
             calc = calcParam;
         }
