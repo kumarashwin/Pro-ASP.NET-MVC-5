@@ -12,7 +12,9 @@
         <a class="navbar-brand" href="#">Sports Store</a>
     </div>
     <div class="row panel">
-        <div id="categories" class="col-xs-3">Put something useful here for later</div>
+        <div id="categories" class="col-xs-3">
+            @Html.Action("Menu", "Nav")
+        </div>
         <div class="col-xs-8">@RenderBody()</div>
     </div>
 </body>

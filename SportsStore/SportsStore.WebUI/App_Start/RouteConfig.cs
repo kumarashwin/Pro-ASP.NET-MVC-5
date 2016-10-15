@@ -42,6 +42,13 @@ namespace SportsStore.WebUI
                 defaults: new { controller = "Product", action = "List" },
                 constraints: new { page = @"\d+" }
             );
+
+            // Default
+            routes.MapRoute(
+                name: "default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { id = UrlParameter.Optional }
+                );
         }
     }
 }
