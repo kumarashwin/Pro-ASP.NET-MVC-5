@@ -16,6 +16,55 @@ namespace SportsStore.UnitTests
     public class UnitTest1
     {
         [TestMethod]
+        public void Generate_Category_Specific_Product_Count()
+        {
+            //Arrange
+            var mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[] {
+                new Product {ProductId = 1, Name = "P1", Category = "Cat1"},
+                new Product {ProductId = 2, Name = "P2", Category = "Cat2" },
+                new Product {ProductId = 3, Name = "P3", Category = "Cat1" },
+                new Product {ProductId = 4, Name = "P4", Category = "Cat2" },
+                new Product {ProductId = 5, Name = "P5", Category = "Cat3" }});
+
+            var controller = new ProductController(mock.Object);
+            controller.PageSize = 3;
+
+            //Act
+            int res1 = ((ProductListViewModel)controller.List("Cat1").Model).PagingInfo.TotalItems;
+            int res2 = ((ProductListViewModel)controller.List("Cat2").Model).PagingInfo.TotalItems;
+            int res3= ((ProductListViewModel)controller.List("Cat3").Model).PagingInfo.TotalItems;
+            int resAll = ((ProductListViewModel)controller.List(null).Model).PagingInfo.TotalItems;
+
+            //Assert
+            Assert.AreEqual(res1, 2);
+            Assert.AreEqual(res2, 2);
+            Assert.AreEqual(res3, 1);
+            Assert.AreEqual(resAll, 5);
+
+
+        }
+
+        [TestMethod]
+        public void Indicates_Selected_Category()
+        {
+            //Arrange
+            var mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[] {
+                new Product {ProductId = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductId = 4, Name = "P4", Category = "Oranges" }});
+
+            var target = new NavController(mock.Object);
+            string categoryToSelect = "Apples";
+
+            //Act
+            var result = target.Menu(categoryToSelect).ViewBag.SelectedCategory;
+
+            //Assert
+            Assert.AreEqual(categoryToSelect, result);
+        }
+
+        [TestMethod]
         public void Cant_Create_Categories()
         {
             //Arrange
