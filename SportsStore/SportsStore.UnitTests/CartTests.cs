@@ -2,12 +2,69 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SportsStore.Domain.Entities;
 using System.Linq;
+using Moq;
+using SportsStore.Domain.Abstract;
+using SportsStore.WebUI.Controllers;
+using SportsStore.WebUI.Models;
 
 namespace SportsStore.UnitTests
 {
     [TestClass]
     public class CartTests
     {
+        [TestMethod]
+        public void Can_Add_To_Cart()
+        {
+            //Arrange
+            var mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[] { new Product { ProductId = 1, Name = "P1", Category = "Apples" } }.AsQueryable());
+
+            var cart = new Cart();
+
+            var controller = new CartController(mock.Object);
+
+            //Act
+            controller.AddToCart(cart, 1, null);
+
+            //Assert
+            Assert.AreEqual(cart.Lines.Count(), 1);
+            Assert.AreEqual(cart.Lines.ToArray()[0].Product.ProductId, 1);
+        }
+
+        [TestMethod]
+        public void Adding_Product_To_Cart_Goes_To_Cart_Screen()
+        {
+            //Arrange
+            var mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[] { new Product { ProductId = 1, Name = "P1", Category = "Apples" } }.AsQueryable());
+
+            var cart = new Cart();
+
+            var controller = new CartController(mock.Object);
+
+            //Act
+            var result = controller.AddToCart(cart, 2, "myUrl");
+
+            //Assert
+            Assert.AreEqual(result.RouteValues["action"], "Index");
+            Assert.AreEqual(result.RouteValues["returnUrl"], "myUrl");
+        }
+
+        [TestMethod]
+        public void Can_View_Cart_Contents()
+        {
+            //Arrange
+            var cart = new Cart();
+            var controller = new CartController(null);
+
+            //Act
+            var result = (CartIndexViewModel)controller.Index(cart, "myUrl").ViewData.Model;
+
+            //Assert
+            Assert.AreSame(cart, result.Cart);
+            Assert.AreEqual("myUrl", result.ReturnUrl);
+        }
+
         [TestMethod]
         public void Can_Add_New_Lines()
         {
