@@ -1,10 +1,7 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using SportsStore.Domain.Entities;
-using System.Collections.Generic;
 
-namespace SportsStore.Domain.Concrete
-{
+namespace SportsStore.Domain.Concrete {
     public class MongoDbContext
     {
         private IMongoDatabase _db;
@@ -14,13 +11,16 @@ namespace SportsStore.Domain.Concrete
             this._db = db;
         }
 
-        public IEnumerable<Product> Products {
+        public IMongoCollection<Product> Products {
             get
             {
-                return _db.GetCollection<Product>("Products")
-                    .Find(new BsonDocument())
-                    .Project<Product>(Builders<Product>.Projection.Exclude("_id"))
-                    .ToEnumerable();              
+                return _db.GetCollection<Product>("Products");          
+            }
+        }
+
+        public IMongoCollection<Counter> Counters {
+            get {
+                return _db.GetCollection<Counter>("Counters");
             }
         }
     }

@@ -13,7 +13,7 @@ using SportsStore.WebUI.HtmlHelpers;
 namespace SportsStore.UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class ProductTests
     {
         [TestMethod]
         public void Generate_Category_Specific_Product_Count()
@@ -184,5 +184,5 @@ namespace SportsStore.UnitTests
                 @"<a class=""btn btn-default btn-primary selected"" href=""Page2"">2</a>" +
                 @"<a class=""btn btn-default"" href=""Page3"">3</a>", result.ToString());
         }
-}
+    }
 }
