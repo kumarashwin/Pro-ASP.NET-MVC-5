@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using SportsStore.Domain.Entities;
 
 namespace SportsStore.Domain.Concrete {
@@ -18,9 +19,9 @@ namespace SportsStore.Domain.Concrete {
             }
         }
 
-        public IMongoCollection<Counter> Counters {
+        public IMongoCollection<BsonDocument> Counters {
             get {
-                return _db.GetCollection<Counter>("Counters");
+                return _db.GetCollection<BsonDocument>("Counters");
             }
         }
     }

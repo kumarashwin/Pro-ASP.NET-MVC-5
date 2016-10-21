@@ -51,12 +51,11 @@ namespace SportsStore.Domain.Concrete {
             dataChanged = true;
         }
 
-        public int getNextSequence(string collectionName) {
-            var counter = context.Counters.Find(new BsonDocument()).Project<Counter>(Builders<Counter>.Projection.Exclude("_id")).FirstOrDefault();
-            var sequence = counter.Sequence;
-            counter.Sequence++;
-            context.Counters.ReplaceOne(c => c.CollectionName == collectionName, counter);
-            return sequence;
-        }
+        public int getNextSequence(string sequenceName) => context.Counters
+            .FindOneAndUpdate<BsonDocument>(
+                doc => doc["_id"] == sequenceName,
+                Builders<BsonDocument>.Update.Inc("sequence", 1),
+                new FindOneAndUpdateOptions<BsonDocument>() { ReturnDocument = ReturnDocument.Before }
+            )["sequence"].ToInt32();
     }
 }
