@@ -30,5 +30,10 @@ namespace SportsStore.WebUI.Controllers
             
             return View(new ProductListViewModel() { Products = products, PagingInfo = pagingInfo, CurrentCategory = category });
         }
+
+        public FileContentResult GetImage(int productId) {
+            var product = repository.Products.FirstOrDefault(p => p.ProductId == productId);
+            return product == null ? null : File(product.ImageData, product.ImageMimeType);
+        }
     }
 }

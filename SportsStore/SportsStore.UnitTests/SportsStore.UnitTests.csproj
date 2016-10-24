@@ -121,6 +121,7 @@
     <Compile Include="AdminSecurityTests.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="AdminTests.cs" />
+    <Compile Include="ImageTests.cs" />
     <Compile Include="ProductTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CartTests.cs" />
