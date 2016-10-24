@@ -6,6 +6,8 @@ using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Concrete;
 using System.Configuration;
 using MongoDB.Driver;
+using SportsStore.WebUI.Infrastructure.Abstract;
+using SportsStore.WebUI.Infrastructure.Concrete;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -23,15 +25,16 @@ namespace SportsStore.WebUI.Infrastructure
 
         private void AddBindings()
         {
-            kernel.Bind<MongoClient>().ToSelf().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MongoDbContext"].ConnectionString);
-            kernel.Bind<IMongoDatabase>().ToMethod(ctx => ctx.Kernel.Get<MongoClient>().GetDatabase(ConfigurationManager.AppSettings["MongoDbName"]));
-            kernel.Bind<IProductRepository>().To<MongoDbProductRepository>();
+            //kernel.Bind<MongoClient>().ToSelf().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MongoDbContext"].ConnectionString);
+            //kernel.Bind<IMongoDatabase>().ToMethod(ctx => ctx.Kernel.Get<MongoClient>().GetDatabase(ConfigurationManager.AppSettings["MongoDbName"]));
+            //kernel.Bind<IProductRepository>().To<MongoDbProductRepository>();
 
-            //kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            kernel.Bind<IProductRepository>().To<EFProductRepository>();
             kernel.Bind<IOrderProcessor>()
                 .To<EmailOrderProcessor>()
                 .WithConstructorArgument("emailSettings", new EmailSettings {
                     WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")});
+            kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }

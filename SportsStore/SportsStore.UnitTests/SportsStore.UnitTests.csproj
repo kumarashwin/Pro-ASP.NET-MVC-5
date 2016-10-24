@@ -118,6 +118,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdminSecurityTests.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="AdminTests.cs" />
     <Compile Include="ProductTests.cs" />
