@@ -46,9 +46,17 @@ namespace UrlAndRoutes
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
-                name: "Default",
+                name: "OptionalConstraint",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new {
+                    id = new OptionalRouteConstraint(new IntRouteConstraint())
+                });
+
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
     }
 }
