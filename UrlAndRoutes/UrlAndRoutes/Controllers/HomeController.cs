@@ -2,21 +2,26 @@
 
 namespace UrlAndRoutes.Controllers {
 
-    [RoutePrefix("Home")]
     public class HomeController : Controller {
 
-        //[Route("~/Index")]
         public ActionResult Index() {
             ViewBag.Controller = "Home";
             ViewBag.Action = "Index";
             return View("ActionName");
         }
 
-        // [Route("CustomVariable/{id:alpha:minlength(6)}")]
-        public ActionResult CustomVariable(int id = 6) {
+        public ActionResult CustomVariable(object id) {
             ViewBag.Controller = "Home";
             ViewBag.Action = "CustomVariable";
             ViewBag.CustomVariable = id;
+            return View();
+        }
+
+        public ViewResult MyActionMethod() {
+            string myActionUrl = Url.Action("Index", new { id = "MyId" });
+            string myRouteUrl = Url.RouteUrl(new { controller = "Home", action = "Index" });
+
+            //... do something with URLs...
             return View();
         }
     }

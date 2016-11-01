@@ -1,57 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Routing.Constraints;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
+using UrlAndRoutes.Infrastructure;
 
-namespace UrlAndRoutes
-{
-    public class RouteConfig
-    {
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            //routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+namespace UrlAndRoutes {
+    public class RouteConfig {
 
-            //routes.MapRoute("ShopSchema2", "Shop/OldAction", new { controller = "Home", action = "Index" });
+        public static void RegisterRoutes(RouteCollection routes) {
 
-            //routes.MapRoute("ShopSchema", "Shop/{action}", new { controller = "Home" });
+            //routes.Add(new Route("SayHello", new CustomRouteHandler()));
 
-            //routes.MapRoute(
-            //    name: "StaticRoute",
-            //    url: "Public/{controller}/{action}",
-            //    defaults: new { controller = "Home", action = "Index" });
+            //routes.RouteExistingFiles = true;
 
-            //routes.MapRoute(
-            //    name: "MyRoute",
-            //    url: "{controller}/{action}",
-            //    defaults: new { controller = "Home", action = "Index"});
+            routes.MapRoute("DiskFile", "Content/Static.html", new { controller = "Custom", action = "List" });
 
-            //routes.MapRoute(
-            //    name: "CatchAll",
-            //    url: "{controller}/{action}/{id}/{*catchall}",
-            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-            //    constraints: new {
-            //        controller = "^H.*", action = "^Index$|^About$",
-            //        httpMethod = new HttpMethodConstraint("GET"),
-            //        id = new CompoundRouteConstraint(new IRouteConstraint[]{
-            //            new AlphaRouteConstraint(),
-            //            new MinLengthRouteConstraint(6)
-            //        })
-            //    });
-            //    namespaces: new[] { "UrlAndRoutes.AdditionalControllers" });
-            //    .DataTokens["UseNamespaceFallback"] = false;
+            routes.Add(new LegacyRoute(
+                "~/articles/Windows_3.1_overview.html/",
+                "~/old/.NET_1.0_Class_Library"));
 
-            routes.MapMvcAttributeRoutes();
+            routes.MapRoute("MyRoute", "{controller}/{action}", null, new[] {"UrlAndRoutes.Controllers"});
 
-            routes.MapRoute(
-                name: "OptionalConstraint",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                constraints: new {
-                    id = new OptionalRouteConstraint(new IntRouteConstraint())
-                });
+            routes.MapRoute("MyOtherRoute", "App/{action}", new { controller = "Home" }, new[] { "UrlAndRoutes.Controllers" });
 
             //routes.MapRoute(
             //    name: "Default",
