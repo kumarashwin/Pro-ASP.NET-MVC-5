@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width"/>
+
+        <style type="text/css">
+            div.layout {background-color: lightgray;}
+            div.view {border: thin solid black; margin: 10px 0;}
+        </style>
+
+        <title>@ViewBag.Title</title>
+        
+    </head>
+    <body>
+        @RenderSection("Header", required: false)
+
+        <div class="layout">This is part of the layout</div>
+
+        @RenderBody()
+
+        <div class="layout">This is part of the layout</div>
+
+        @RenderSection("Footer", required: false)
+
+        <div class="layout">This is part of the layout</div>
+    </body>
+</html>
