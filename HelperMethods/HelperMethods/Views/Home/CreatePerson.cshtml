@@ -3,26 +3,17 @@
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Create Person";
+    Html.EnableClientValidation(false);
 }
 
-<h2>Create Person</h2>
+<h2>Create Person: @Html.LabelForModel()</h2>
 
 @using (Html.BeginRouteForm("FormRoute", new { }, FormMethod.Post, new { @class = "personClass", data_formType = "person" })) {
-    <div class="dataElem">
-        <label>PersonId</label>
-        @Html.TextBoxFor(m => m.PersonId)
+    <div class="column">
+        @Html.EditorForModel()
     </div>
-    <div class="dataElem">
-        <label>First Name</label>
-        @Html.TextBoxFor(m => m.FirstName)
-    </div>
-    <div class="dataElem">
-        <label>Last Name</label>
-        @Html.TextBoxFor(m => m.LastName)
-    </div>
-    <div class="dataElem">
-        <label>Role</label>
-        @Html.DropDownListFor(m => m.Role, new SelectList(Enum.GetNames(typeof(HelperMethods.Models.Role))))
+    <div class="column">
+        @Html.EditorFor(m => m.HomeAddress)
     </div>
     <input type="submit" value="Submit" />
 }

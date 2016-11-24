@@ -1,8 +1,4 @@
 ﻿using HelperMethods.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace HelperMethods.Controllers {
@@ -18,6 +14,6 @@ namespace HelperMethods.Controllers {
         public ActionResult CreatePerson() => View(new Person());
 
         [HttpPost]
-        public ActionResult CreatePerson(Person person) => View(person);
+        public ActionResult CreatePerson(Person person) => View("DisplayPerson", person);
     }
 }
