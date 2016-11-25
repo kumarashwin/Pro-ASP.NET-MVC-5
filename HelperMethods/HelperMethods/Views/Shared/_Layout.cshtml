@@ -13,7 +13,19 @@
             .editor-field {margin-left: 10px;}
             input[type=submit] { float: left; clear: both; margin-top: 10px;}
             .column {float: left; margin: 10px;}
+            table, td, th { 
+                border: thin solid black;
+                border-collapse: collapse;
+                padding: 5px;
+                background-color: lemonchiffon;
+                text-align: left; 
+                margin: 10px 0;
+            }
+            div.load { color: red; margin: 10px 0; font-weight: bold; }
+            div.ajaxLink { margin-top: 10px; margin-right: 5px; float: left;}
         </style>
+        <script src="~/Scripts/jquery-3.1.1.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
         <title>@ViewBag.Title</title>
         @RenderSection("head", required: false)
     </head>
