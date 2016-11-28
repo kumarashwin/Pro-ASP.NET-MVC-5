@@ -1,0 +1,10 @@
+﻿@model ModelValidation.Models.Appointment
+
+@{
+    ViewBag.Title = "Completed";
+}
+
+<h4>Your apppointment is confirmed</h4>
+
+<p>Your Name: @Html.DisplayFor(m => m.ClientName)</p>
+<p>Appointment Date: @Html.DisplayFor(m => m.Date)</p>
