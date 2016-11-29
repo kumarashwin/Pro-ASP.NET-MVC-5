@@ -1,0 +1,33 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .field-validation-error { color: #f00; }
+        .validation-summary-errors { color: #f00; font-weight: bold; }
+        .input-validation-error { border: 2px solid #f00; background-color: #fee; }
+        input[type="checkbox"].input-validation-error { outline: 2px solid #f00; }
+        div.hidden { display: none; }
+        div.visible { display: block; }
+    </style>
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/clientfeaturesscripts")
+    @RenderSection("Scripts", false)
+</head>
+<body>
+    <div>
+        @RenderSection("Body")
+    </div>
+</body>
+</html>
